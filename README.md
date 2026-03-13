@@ -13,6 +13,7 @@ Diese Datei (`template.html`) ist ein vollständig eigenständiges Präsentation
 ## Zweck
 
 Das Template dient als Ausgangspunkt für Seminar-, Projekt- und Abschlussarbeitspräsentationen. Es enthält das Corporate-Design der Frankfurt UAS (Logo, Hintergrundbilder, Farbschema) und ist auf wissenschaftliche Inhalte aus Ingenieurwesen und Informatik zugeschnitten. Je nach Bedarf ist das Design aber beliebig anpassbar durch austauschen der dateien, beispielsweise wenn die Präsentation für eine andere Einrichtung gedacht ist. Dazu müssen lediglich die Bilder „bg_xxx.png” durch eigene Designs ersetzt werden.   
+
 ---
 
 ## Für wen ist das gedacht?
