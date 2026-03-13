@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[TITEL] – Frankfurt University of Applied Sciences</title>
+
+<!-- Reveal.js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- KaTeX (Mathe-Formeln) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<!-- Highlight.js (Syntax-Highlighting) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<style>
+  /* ============================================================ */
+  /* DESIGN-TOKENS                                                 */
+  /* ============================================================ */
+  :root {
+    --primary:       #0d4f8b;
+    --primary-light: #1a6bb5;
+    --accent:        #0e7c86;
+    --text-dark:     #1a2332;
+    --text-mid:      #3a4a5e;
+    --text-muted:    #6b7a8d;
+    --card-bg:       rgba(255,255,255,0.75);
+    --card-border:   rgba(13,79,139,0.2);
+    --success:       #0e8a5f;
+    --warning:       #b8860b;
+    --danger:        #c0392b;
+    --dark-text:     #f0f4f8;
+    --dark-muted:    #a0b4c8;
+    --terminal-bg:   #0d1117;
+    --terminal-green:#39d353;
+    --terminal-cyan: #58d7f7;
+  }
+
+  /* ============================================================ */
+  /* REVEAL BASE                                                   */
+  /* ============================================================ */
+  .reveal { font-family: 'Inter', sans-serif; }
+  .reveal .slides { text-align: left; }
+  .reveal .slides section {
+    box-sizing: border-box;
+    padding: 36px 54px;
+    height: 100%; width: 100%;
+    overflow: hidden;
+    display: flex !important;
+    flex-direction: column;
+  }
+  .reveal .slide-background { background-size: cover; background-position: center; }
+
+  /* ============================================================ */
+  /* HELLE INHALTSFOLIE (.slide-content)                          */
+  /* ============================================================ */
+  .slide-content { color: var(--text-dark); }
+
+  /* Footer mit Pflichtangaben – HIER ANPASSEN */
+  .slide-content::after {
+    content: '[DATUM]  |  Frankfurt University of Applied Sciences  |  [MODUL]  |  [NAME]';
+    display: block;
+    margin-top: auto;
+    padding-top: 15px;
+    margin-bottom: -18px;
+    font-size: 12px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  /* Slide-Titel mit Logo rechts */
+  .slide-content h2 {
+    font-weight: 700; font-size: 28px; color: var(--primary);
+    margin: 0 0 16px;
+    border-bottom: 2px solid rgba(13,79,139,0.25);
+    padding-bottom: 8px; text-align: left; flex-shrink: 0;
+    position: relative; padding-right: 90px;
+  }
+  .slide-content h2::after {
+    content: '';
+    position: absolute; right: 0; bottom: 8px;
+    width: 110px; height: 42px;
+    background: url('fra_uas_logo.png') no-repeat right center;
+    background-size: contain;
+  }
+  .slide-content h3 { font-weight: 600; font-size: 18px; color: var(--primary-light); margin: 0 0 8px; }
+  .slide-content p  { font-size: 17px; line-height: 1.5; color: var(--text-dark); margin: 4px 0; }
+  .slide-content li { font-size: 16px; line-height: 1.5; color: var(--text-dark); }
+  .slide-content .text-muted { color: var(--text-muted) !important; font-size: 14px !important; }
+
+  /* Karten */
+  .slide-content .card {
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: 10px; padding: 18px 20px; flex: 1;
+    backdrop-filter: blur(6px);
+  }
+  .slide-content .card + .card { margin-top: 12px; }
+  .slide-content .card-accent  { border-left: 3px solid var(--primary); }
+  .slide-content .card-success { border-left: 3px solid var(--success); }
+  .slide-content .card-warning { border-left: 3px solid var(--warning); }
+  .slide-content .card-danger  { border-left: 3px solid var(--danger); }
+
+  /* Bild-Platzhalter */
+  .slide-content .img-placeholder {
+    background: rgba(13,79,139,0.06); border: 2px dashed rgba(13,79,139,0.25);
+    border-radius: 10px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: var(--text-muted); font-size: 14px; text-align: center;
+    padding: 16px; flex: 1; min-height: 0;
+  }
+  .slide-content .img-placeholder .icon { font-size: 36px; margin-bottom: 8px; opacity: 0.4; }
+
+  /* Statistik-Box */
+  .slide-content .stat-box {
+    text-align: center; padding: 14px 22px;
+    background: var(--card-bg); border-radius: 10px;
+    border: 1px solid var(--card-border); min-width: 100px;
+    backdrop-filter: blur(6px);
+  }
+  .slide-content .stat-box .number { font-size: 26px; font-weight: 700; color: var(--primary); display: block; font-family: 'Fira Code', monospace; }
+  .slide-content .stat-box .label  { font-size: 12px; color: var(--text-muted); margin-top: 4px; display: block; }
+
+  /* Tabelle */
+  .slide-content table { font-size: 14px; width: 100%; border-collapse: collapse; margin-top: 8px; }
+  .slide-content table th { background: rgba(13,79,139,0.1); color: var(--primary); padding: 8px 12px; text-align: center; font-weight: 600; border-bottom: 2px solid rgba(13,79,139,0.25); }
+  .slide-content table td { padding: 7px 12px; text-align: center; border-bottom: 1px solid rgba(0,0,0,0.07); color: var(--text-dark); }
+  .slide-content .highlight-cell { color: var(--success) !important; font-weight: 700; }
+  .slide-content .dim-cell       { color: var(--text-muted) !important; }
+
+  /* Badges */
+  .slide-content .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; margin: 3px; }
+  .slide-content .badge-blue   { background: rgba(13,79,139,0.12);  color: var(--primary); }
+  .slide-content .badge-green  { background: rgba(14,138,95,0.12);  color: var(--success); }
+  .slide-content .badge-yellow { background: rgba(184,134,11,0.12); color: var(--warning); }
+  .slide-content .badge-red    { background: rgba(192,57,43,0.12);  color: var(--danger);  }
+
+  /* Gleichungsbox */
+  .slide-content .equation-box {
+    background: rgba(13,79,139,0.08); border: 1px solid rgba(13,79,139,0.2);
+    border-radius: 10px; padding: 14px 20px;
+    font-size: 18px; text-align: center; color: var(--text-dark); margin: 10px 0; flex-shrink: 0;
+  }
+
+  /* Listen */
+  .slide-content ul { list-style: none; padding-left: 0; margin: 6px 0; }
+  .slide-content ul li::before { content: "›"; color: var(--primary); font-weight: 700; margin-right: 10px; }
+  .slide-content ul li { margin-bottom: 6px; }
+
+  /* Fluss-Elemente */
+  .slide-content .flow-step {
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: 10px; padding: 12px 16px; text-align: center; font-size: 14px; min-width: 90px;
+    backdrop-filter: blur(6px);
+  }
+  .slide-content .flow-arrow { color: var(--primary); font-size: 22px; }
+
+  /* Abschnitts-Label oben */
+  .slide-content[data-section]::before {
+    content: attr(data-section);
+    font-size: 11px; font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    display: block; flex-shrink: 0; margin-bottom: 0;
+  }
+
+  /* ============================================================ */
+  /* DUNKLE FOLIE (.slide-dark) – Titel + Abschluss               */
+  /* ============================================================ */
+  .slide-dark {
+    color: var(--dark-text);
+    text-align: center !important;
+    justify-content: center;
+    align-items: center;
+  }
+  .slide-dark h1 {
+    font-weight: 700; font-size: 52px; color: #ffffff;
+    margin: 0 0 6px; letter-spacing: -0.02em;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+  .slide-dark .subtitle {
+    font-size: 25px; color: #5ee8d0; font-weight: 400;
+    margin-bottom: 28px; text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+  }
+  .slide-dark .meta {
+    font-size: 15px; color: var(--dark-muted); line-height: 1.8;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+  .slide-dark .meta strong { color: #ffffff; }
+
+  /* ============================================================ */
+  /* ABSCHNITTS-TRENNFOLIE (.slide-section)                        */
+  /* ============================================================ */
+  .slide-section { justify-content: center; align-items: center; text-align: center; }
+  /* Footer auf Section-Folien ausblenden – sonst schiebt margin-top:auto den Content nach oben */
+  .slide-section.slide-content::after { display: none; }
+  .slide-section .sct-logo {
+    position: absolute; right: 54px; top: 42px;
+    width: 110px; height: 42px;
+    background: url('fra_uas_logo.png') no-repeat right center;
+    background-size: contain;
+  }
+  .slide-section .sct-num {
+    font-size: 100px; font-weight: 700;
+    color: rgba(13,79,139,0.08);
+    line-height: 1; margin-bottom: -20px;
+    font-family: 'Fira Code', monospace;
+  }
+  .slide-section .sct-name {
+    font-size: 52px; font-weight: 700; color: var(--primary);
+    margin: 0 0 14px; letter-spacing: -0.02em;
+  }
+  .slide-section .sct-desc {
+    font-size: 22px; color: var(--accent); font-weight: 400;
+  }
+
+  /* ============================================================ */
+  /* LAYOUT-HELFER                                                 */
+  /* ============================================================ */
+  .two-col        { display: grid; grid-template-columns: 1fr 1fr;   gap: 24px; align-items: start; flex: 1; }
+  .two-col-60-40  { display: grid; grid-template-columns: 3fr 2fr;   gap: 24px; align-items: start; flex: 1; }
+  .two-col-40-60  { display: grid; grid-template-columns: 2fr 3fr;   gap: 24px; align-items: start; flex: 1; }
+  .three-col      { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; align-items: start; flex: 1; }
+  .four-col       { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; align-items: start; flex: 1; }
+  .two-col > div, .two-col-60-40 > div, .two-col-40-60 > div, .three-col > div, .four-col > div { display: flex; flex-direction: column; }
+  .stat-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; align-items: center; flex-shrink: 0; }
+  .flow-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 12px 0; flex-shrink: 0; }
+  .badge-row { text-align: center; margin-top: 14px; flex-shrink: 0; }
+  .table-wrap { flex: 0 0 auto; display: flex; flex-direction: column; justify-content: flex-start; }
+
+  /* ============================================================ */
+  /* ANIMIERTES BALKENDIAGRAMM                                     */
+  /* ============================================================ */
+  .bar-chart { display: flex; align-items: flex-end; gap: 14px; flex: 1; min-height: 160px; padding: 0 10px; }
+  .bar-wrap { display: flex; flex-direction: column; align-items: center; flex: 1; height: 100%; justify-content: flex-end; }
+  .bar {
+    width: 100%; border-radius: 6px 6px 0 0;
+    background: linear-gradient(180deg, var(--primary-light), var(--primary));
+    transform-origin: bottom;
+    transition: height 0.9s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .bar.bar-accent   { background: linear-gradient(180deg, #13b5a0, var(--accent)); }
+  .bar.bar-success  { background: linear-gradient(180deg, #1db87a, var(--success)); }
+  .bar.bar-warning  { background: linear-gradient(180deg, #d4a012, var(--warning)); }
+  .bar.bar-danger   { background: linear-gradient(180deg, #e05646, var(--danger)); }
+  .bar-label { font-size: 13px; color: var(--text-muted); margin-top: 6px; text-align: center; }
+  .bar-value { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 4px; font-family: 'Fira Code', monospace; }
+  .bar-axis  { width: 100%; height: 2px; background: rgba(13,79,139,0.2); border-radius: 1px; margin-top: 0; flex-shrink: 0; }
+  .chart-wrap { display: flex; flex-direction: column; flex: 1; }
+
+  /* ============================================================ */
+  /* CODE-FOLIE (.slide-code)                                      */
+  /* ============================================================ */
+  .slide-code {
+    background: #1e2330 !important;
+    color: #abb2bf;
+    padding: 36px 54px;
+  }
+  .slide-code h2 {
+    font-weight: 700; font-size: 26px; color: #5ee8d0;
+    margin: 0 0 18px; border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 8px; flex-shrink: 0;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .slide-code h2 .tag { font-size: 13px; background: rgba(94,232,208,0.15); color: #5ee8d0; border-radius: 20px; padding: 3px 12px; font-weight: 500; font-family: 'Fira Code', monospace; }
+  .slide-code pre {
+    background: #0d1117 !important; border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    flex: 1; margin: 0; overflow: auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  .slide-code pre code {
+    font-family: 'Fira Code', monospace !important;
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+    padding: 22px 26px !important;
+    display: block;
+  }
+  .slide-code .code-note {
+    margin-top: 12px; font-size: 13px; color: #6b7a8d; flex-shrink: 0;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .slide-code .code-note::before { content: "ℹ"; color: #5ee8d0; }
+
+  /* ============================================================ */
+  /* TERMINAL-FOLIE (.slide-terminal)                              */
+  /* ============================================================ */
+  .slide-terminal {
+    background: var(--terminal-bg) !important;
+    color: #c9d1d9;
+    padding: 36px 54px;
+    flex-direction: column;
+  }
+  .slide-terminal h2 {
+    font-weight: 700; font-size: 26px; color: var(--terminal-green);
+    margin: 0 0 18px; border-bottom: 1px solid rgba(57,211,83,0.2);
+    padding-bottom: 8px; flex-shrink: 0;
+    font-family: 'Fira Code', monospace;
+  }
+  .terminal-window {
+    flex: 1; background: #161b22; border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 4px 32px rgba(0,0,0,0.5);
+    overflow: hidden; display: flex; flex-direction: column;
+  }
+  .terminal-titlebar {
+    background: #21262d; padding: 10px 16px;
+    display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+  }
+  .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .terminal-dot.red    { background: #ff5f56; }
+  .terminal-dot.yellow { background: #ffbd2e; }
+  .terminal-dot.green  { background: #27c93f; }
+  .terminal-title { font-size: 13px; color: #6b7a8d; margin-left: 8px; font-family: 'Fira Code', monospace; }
+  .terminal-body { padding: 18px 22px; flex: 1; font-family: 'Fira Code', monospace; font-size: 14px; line-height: 1.7; overflow: auto; }
+  .terminal-line { display: block; }
+  .t-prompt { color: var(--terminal-green); }
+  .t-cmd    { color: #c9d1d9; }
+  .t-out    { color: #8b949e; }
+  .t-value  { color: var(--terminal-cyan); }
+  .t-success{ color: var(--terminal-green); }
+  .t-error  { color: #ff7b72; }
+  .t-cursor { display: inline-block; width: 8px; height: 15px; background: var(--terminal-green); animation: blink 1s step-end infinite; vertical-align: middle; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Typewriter-Animation für Terminal */
+  .typewriter { overflow: hidden; white-space: nowrap; width: 0; animation: type-out 0s forwards; }
+  @keyframes type-out { to { width: 100%; } }
+
+  /* ============================================================ */
+  /* MATHE-FOLIE (.slide-math)                                     */
+  /* ============================================================ */
+  .slide-math { color: var(--text-dark); }
+  .slide-math .math-block {
+    background: rgba(13,79,139,0.05); border: 1px solid rgba(13,79,139,0.15);
+    border-radius: 12px; padding: 12px 16px; margin: 8px 0;
+    text-align: center; flex-shrink: 0;
+    overflow: hidden;
+  }
+  /* Gleichungen auf passende Größe skalieren damit nichts abgeschnitten wird */
+  .slide-math .math-block .katex-display { margin: 0.2em 0; overflow: hidden; }
+  .slide-math .math-block .katex-display > .katex { font-size: 0.9em; }
+  .slide-math .math-label {
+    font-size: 11px; color: var(--text-muted); text-align: right;
+    font-style: italic; margin-top: 4px;
+  }
+
+  /* ============================================================ */
+  /* SPLIT-FOLIE (.slide-split)                                    */
+  /* ============================================================ */
+  .slide-split { padding: 0 !important; }
+  .split-left {
+    background: #1e2330; color: #abb2bf;
+    padding: 36px 40px; display: flex; flex-direction: column;
+    flex: 1;
+  }
+  .split-right {
+    background: #f8fafc; color: var(--text-dark);
+    padding: 36px 40px; display: flex; flex-direction: column;
+    flex: 1;
+  }
+  .split-container { display: flex; flex-direction: row; flex: 1; }
+  .split-left h3  { color: #5ee8d0; font-size: 18px; margin: 0 0 14px; font-family: 'Fira Code', monospace; }
+  .split-right h3 { color: var(--primary); font-size: 18px; margin: 0 0 14px; }
+  .split-left  pre { background: #0d1117 !important; border-radius: 8px; flex: 1; margin: 0; }
+  .split-left  pre code { font-size: 13px !important; padding: 16px !important; }
+  .split-title {
+    font-weight: 700; font-size: 22px; color: #ffffff;
+    padding: 16px 40px 0;
+    background: #1e2330;
+    flex-shrink: 0;
+  }
+  .split-title span { color: #5ee8d0; }
+
+  /* ============================================================ */
+  /* CANVAS-GRAPH (animierter Live-Graph)                          */
+  /* ============================================================ */
+  .canvas-wrap { flex: 1; display: flex; flex-direction: column; align-items: stretch; min-height: 0; }
+  .canvas-wrap canvas { border-radius: 10px; width: 100% !important; height: 100% !important; flex: 1; min-height: 0; }
+
+  /* ============================================================ */
+  /* NEURONALES NETZ (SVG)                                         */
+  /* ============================================================ */
+  .nn-wrap { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
+  .nn-wrap svg { max-height: 100%; width: auto; }
+  .nn-edge { stroke: rgba(13,79,139,0.2); stroke-width: 1.5; fill: none; transition: stroke 0.3s; }
+  .nn-edge.active { stroke: var(--accent); stroke-width: 2.5; animation: pulse-edge 1.5s ease-in-out infinite; }
+  @keyframes pulse-edge { 0%,100% { stroke-opacity: 0.3; } 50% { stroke-opacity: 1; } }
+  .nn-node { fill: white; stroke: var(--primary); stroke-width: 2; filter: drop-shadow(0 2px 4px rgba(13,79,139,0.2)); transition: fill 0.3s; }
+  .nn-node.active { fill: var(--accent); stroke: var(--accent); }
+  .nn-node.output { fill: var(--primary); stroke: var(--primary); }
+  .nn-node text { fill: white; font-size: 9px; font-family: 'Fira Code', monospace; text-anchor: middle; dominant-baseline: middle; }
+  .nn-label { font-size: 11px; fill: var(--text-muted); text-anchor: middle; font-family: 'Inter', sans-serif; }
+
+  /* ============================================================ */
+  /* FORTSCHRITTSBALKEN (animiert)                                 */
+  /* ============================================================ */
+  .progress-bar-wrap { margin: 8px 0; }
+  .progress-bar-label { display: flex; justify-content: space-between; font-size: 14px; color: var(--text-mid); margin-bottom: 4px; }
+  .progress-bar-track { height: 10px; background: rgba(13,79,139,0.1); border-radius: 10px; overflow: hidden; }
+  .progress-bar-fill {
+    height: 100%; border-radius: 10px;
+    background: linear-gradient(90deg, var(--primary-light), var(--accent));
+    width: 0; transition: width 1.2s cubic-bezier(0.34,1.2,0.64,1);
+  }
+  .progress-bar-fill.warning { background: linear-gradient(90deg, #d4a012, var(--warning)); }
+  .progress-bar-fill.success { background: linear-gradient(90deg, #1db87a, var(--success)); }
+  .progress-bar-fill.danger  { background: linear-gradient(90deg, #e05646, var(--danger)); }
+
+  /* ============================================================ */
+  /* ICON-KARTE (für Feature-Raster)                               */
+  /* ============================================================ */
+  .icon-card {
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 20px;
+    display: flex; flex-direction: column; align-items: flex-start;
+    backdrop-filter: blur(6px);
+    transition: box-shadow 0.2s;
+  }
+  .icon-card:hover { box-shadow: 0 6px 24px rgba(13,79,139,0.12); }
+  .icon-card .ic-icon { font-size: 32px; margin-bottom: 10px; }
+  .icon-card .ic-title { font-size: 15px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+  .icon-card .ic-text  { font-size: 13px; color: var(--text-mid); line-height: 1.5; }
+
+  /* ============================================================ */
+  /* QUOTE-FOLIE                                                   */
+  /* ============================================================ */
+  .quote-block {
+    border-left: 4px solid var(--accent); padding: 16px 24px;
+    background: rgba(14,124,134,0.06); border-radius: 0 10px 10px 0;
+    margin: 10px 0;
+  }
+  .quote-block p { font-size: 20px; font-style: italic; color: var(--text-dark); margin: 0; line-height: 1.6; }
+  .quote-block .source { font-size: 13px; color: var(--text-muted); margin-top: 10px; }
+
+  /* ============================================================ */
+  /* ANIMIERTES FLOWCHART                                          */
+  /* ============================================================ */
+  .flowchart { display: flex; flex-direction: column; align-items: center; flex: 1; justify-content: center; gap: 0; }
+  .fc-row    { display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .fc-box {
+    background: var(--card-bg); border: 2px solid var(--card-border);
+    border-radius: 8px; padding: 10px 18px;
+    text-align: center; font-size: 13px; font-weight: 600; color: var(--primary);
+    min-width: 120px; backdrop-filter: blur(6px);
+    transition: background 0.4s, border-color 0.4s, color 0.4s;
+  }
+  .fc-box.active { background: var(--primary); color: white; border-color: var(--primary); }
+  .fc-box.success{ background: var(--success); color: white; border-color: var(--success); }
+  .fc-box.diamond {
+    transform: rotate(45deg); min-width: 70px; min-height: 70px;
+    display: flex; align-items: center; justify-content: center; padding: 0; border-radius: 6px;
+  }
+  .fc-box.diamond span { transform: rotate(-45deg); font-size: 12px; display: block; }
+  .fc-arrow-v { width: 2px; height: 24px; background: rgba(13,79,139,0.3); margin: 0 auto; }
+  .fc-arrow-h { width: 24px; height: 2px; background: rgba(13,79,139,0.3); flex-shrink: 0; }
+  .fc-arrow-v::after, .fc-arrow-h::after { content: ""; }
+
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 1: TITELFOLIE (dunkel, mit Hintergrundbild)            -->
+<!-- ============================================================ -->
+<!--
+  ANLEITUNG: Ersetze alle [PLATZHALTER] mit deinen Daten.
+  data-background zeigt das FRA UAS Hintergrundbild.
+-->
+<section class="slide-dark" data-background="bg_title.png">
+  <h1>[TITEL DER PRÄSENTATION]<br><span style="font-size:0.6em;font-weight:400;">[Untertitel oder Themenfeld]</span></h1>
+  <div class="subtitle">[Modul / Seminar / Projektbezeichnung]</div>
+  <div class="meta">
+    <strong>[Vorname Nachname]</strong> · Matrikelnr. [XXXXXXX]<br>
+    [Studiengang] · [B.Eng. / M.Eng. / B.Sc. / M.Sc.]<br>
+    Frankfurt University of Applied Sciences<br>
+    Betreuer: [Titel Vorname Nachname] · [TT. Monat JJJJ]
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 2: INHALTSVERZEICHNIS (einfaches Layout)               -->
+<!-- ============================================================ -->
+<section class="slide-content" data-background="bg_content.png">
+  <h2>Inhaltsverzeichnis</h2>
+  <div class="two-col">
+    <div>
+      <div class="card card-accent" style="flex:0 0 auto;margin-bottom:14px;">
+        <h3>Grundlagen</h3>
+        <ul>
+          <li>01 · Motivation &amp; Problemstellung</li>
+          <li>02 · Stand der Technik</li>
+          <li>03 · Systemmodell</li>
+        </ul>
+      </div>
+      <div class="card card-warning" style="flex:0 0 auto;">
+        <h3>Methodik</h3>
+        <ul>
+          <li>04 · Ansatz &amp; Architektur</li>
+          <li>05 · Implementierung (Code)</li>
+          <li>06 · Mathematisches Modell</li>
+          <li>07 · Algorithmus-Ablauf</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card card-success" style="flex:0 0 auto;margin-bottom:14px;">
+        <h3>Ergebnisse</h3>
+        <ul>
+          <li>08 · Methodenvergleich</li>
+          <li>09 · Agentenvergleich</li>
+          <li>10 · Lernkurve</li>
+          <li>11 · Leistungsmetriken</li>
+        </ul>
+      </div>
+      <div class="card" style="flex:0 0 auto;">
+        <h3>Fazit</h3>
+        <ul>
+          <li>12 · Zusammenfassung</li>
+          <li>13 · Ausblick</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 01: GRUNDLAGEN                                        -->
+<!-- ============================================================ -->
+<section class="slide-content slide-section" data-background="bg_content.png">
+  <div class="sct-logo"></div>
+  <div class="sct-num">01</div>
+  <div class="sct-name">Grundlagen</div>
+  <div class="sct-desc">Motivation &amp; Systemmodell</div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 4: EINFACHE AUFZÄHLUNG                                 -->
+<!-- ============================================================ -->
+<section class="slide-content" data-section="Grundlagen" data-background="bg_content.png">
+  <h2>Motivation &amp; Problemstellung</h2>
+  <div class="two-col">
+    <div>
+      <div class="card card-accent" style="flex:0 0 auto;">
+        <h3>Ausgangssituation</h3>
+        <ul>
+          <li>Punkt A – Kontext und Relevanz des Themas</li>
+          <li>Punkt B – Bestehende Herausforderungen im Bereich</li>
+          <li>Punkt C – Warum bestehende Lösungen unzureichend sind</li>
+        </ul>
+      </div>
+      <div class="card card-warning" style="flex:0 0 auto;margin-top:14px;">
+        <h3>Herausforderungen</h3>
+        <ul>
+          <li>Technische Einschränkung 1</li>
+          <li>Technische Einschränkung 2</li>
+          <li>Skalierungsproblem / Ressourcenproblem</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card card-success" style="flex:0 0 auto;">
+        <h3>Lösungsansatz</h3>
+        <p>Kurze Zusammenfassung des eigenen Ansatzes in 2–3 Sätzen. Was wird gemacht, womit, und mit welchem Ziel?</p>
+      </div>
+      <div class="stat-row" style="margin-top:16px;flex-shrink:0;">
+        <div class="stat-box"><span class="number">42 %</span><span class="label">Effizienzsteigerung</span></div>
+        <div class="stat-box"><span class="number">3×</span><span class="label">Geschwindigkeitsgewinn</span></div>
+        <div class="stat-box"><span class="number">&lt;1 ms</span><span class="label">Latenz</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 5: ZWEI-SPALTEN-LAYOUT (Text + Bild-Platzhalter)       -->
+<!-- ============================================================ -->
+<section class="slide-content" data-section="Grundlagen" data-background="bg_content.png">
+  <h2>Systemmodell &amp; Architektur</h2>
+  <div class="two-col-60-40" style="align-items: stretch;">
+    <div>
+      <div class="card card-accent" style="flex:0 0 auto;">
+        <h3>Kernkomponenten</h3>
+        <ul>
+          <li><strong>Komponente A</strong> – Funktion und Aufgabe im System</li>
+          <li><strong>Komponente B</strong> – Schnittstellen und Datenfluss</li>
+          <li><strong>Komponente C</strong> – Steuerung &amp; Regelung</li>
+        </ul>
+      </div>
+      <div class="flow-row" style="margin-top:16px;">
+        <div class="flow-step">Eingabe</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Verarbeitung</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Modell</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Ausgabe</div>
+      </div>
+      <div class="badge-row">
+        <span class="badge badge-blue">Python 3.11</span>
+        <span class="badge badge-green">TensorFlow 2.x</span>
+        <span class="badge badge-yellow">MATLAB/Simulink</span>
+        <span class="badge badge-blue">ROS 2</span>
+      </div>
+    </div>
+    <div>
+      <div class="img-placeholder">
+        <div class="icon">🖼️</div>
+        <em>Dein Bild einfügen:<br>Systemdiagramm, Foto oder Schaubild<br><br>
+        Empfehlung: PNG/SVG mit transparentem Hintergrund</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 6: ICON-KARTEN-RASTER (2×2)                            -->
+<!-- ============================================================ -->
+<section class="slide-content" data-section="Grundlagen" data-background="bg_content.png">
+  <h2>Vier Kernaspekte des Projekts</h2>
+  <div class="two-col" style="flex:1;">
+    <div>
+      <div class="icon-card" style="flex:1;margin-bottom:14px;">
+        <div class="ic-icon">⚙️</div>
+        <div class="ic-title">Regelungstechnik</div>
+        <div class="ic-text">Beschreibung des regelungstechnischen Ansatzes – PID, Zustandsregler, prädiktive Regelung etc.</div>
+      </div>
+      <div class="icon-card" style="flex:1;">
+        <div class="ic-icon">🧠</div>
+        <div class="ic-title">Machine Learning</div>
+        <div class="ic-text">Eingesetztes ML-Verfahren: Reinforcement Learning, überwachtes Lernen, neuronale Netze.</div>
+      </div>
+    </div>
+    <div>
+      <div class="icon-card" style="flex:1;margin-bottom:14px;">
+        <div class="ic-icon">📡</div>
+        <div class="ic-title">Datenerfassung</div>
+        <div class="ic-text">Sensoren, Abtastrate, Vorverarbeitung der Rohdaten, Kalibrierung und Validierung.</div>
+      </div>
+      <div class="icon-card" style="flex:1;">
+        <div class="ic-icon">🔒</div>
+        <div class="ic-title">Sicherheit &amp; Verifikation</div>
+        <div class="ic-text">Formale Verifikation, Testabdeckung, Safety-Monitoring und Fail-Safe-Mechanismen.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 02: METHODIK                                          -->
+<!-- ============================================================ -->
+<section class="slide-content slide-section" data-background="bg_content.png">
+  <div class="sct-logo"></div>
+  <div class="sct-num">02</div>
+  <div class="sct-name">Methodik</div>
+  <div class="sct-desc">Implementierung &amp; Mathematisches Modell</div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 8: CODE-BLOCK MIT SYNTAX-HIGHLIGHTING ★ HTML-spezifisch -->
+<!-- ============================================================ -->
+<section class="slide-code" data-background-color="#1e2330">
+  <h2>Implementierung: Reward-Funktion <span class="tag">Python · RL</span></h2>
+  <pre><code class="language-python">import numpy as np
+from typing import Tuple
+
+class RewardShaper:
+    """Multi-objective reward function for trajectory tracking."""
+
+    def __init__(self, w_track: float = 0.6, w_energy: float = 0.2,
+                 w_safety: float = 0.2, collision_penalty: float = -50.0):
+        self.w_track    = w_track        # Trajectory tracking weight
+        self.w_energy   = w_energy       # Energy efficiency weight
+        self.w_safety   = w_safety       # Safety constraint weight
+        self.penalty    = collision_penalty
+
+    def compute(self, state: np.ndarray, action: np.ndarray,
+                next_state: np.ndarray) -> Tuple[float, dict]:
+        # Tracking error (end-effector position)
+        ee_error   = np.linalg.norm(state[:3] - self.target[:3])
+        r_track    = -self.w_track * ee_error ** 2
+
+        # Energy consumption (joint torque norm)
+        r_energy   = -self.w_energy * np.linalg.norm(action) ** 2
+
+        # Safety: collision & joint limit violations
+        collision  = self._check_collision(next_state)
+        r_safety   = self.penalty if collision else self.w_safety
+
+        total      = r_track + r_energy + r_safety
+        return total, {"track": r_track, "energy": r_energy, "safety": r_safety}
+</code></pre>
+  <div class="code-note">Multi-objective Reward: Tracking ω=0.6, Energie ω=0.2, Sicherheit ω=0.2 – ersetze durch deinen Code</div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 9: TERMINAL-ANIMATION ★ HTML-spezifisch                -->
+<!-- ============================================================ -->
+<section class="slide-terminal" id="slide-terminal">
+  <h2>$ Training &amp; Evaluation</h2>
+  <div class="terminal-window">
+    <div class="terminal-titlebar">
+      <div class="terminal-dot red"></div>
+      <div class="terminal-dot yellow"></div>
+      <div class="terminal-dot green"></div>
+      <div class="terminal-title">bash — fra_uas_project</div>
+    </div>
+    <div class="terminal-body" id="terminal-body">
+      <span class="terminal-line"><span class="t-prompt">(venv) student@fra-uas:~$</span> <span class="t-cmd">python train.py --agent PPO --episodes 1000 --seed 42</span></span>
+      <span class="terminal-line t-out">Initializing environment...  <span class="t-success">✓</span></span>
+      <span class="terminal-line t-out">Loading robot model (SpaceRobot.urdf) ... <span class="t-success">✓</span></span>
+      <span class="terminal-line t-out">Building PPO network: [23 → 256 → 256 → 4]</span>
+      <span class="terminal-line" style="margin-top:8px;"><span class="t-out">Episode </span><span class="t-value">  100/1000</span><span class="t-out">  reward: </span><span class="t-value">-182.4</span><span class="t-out">  ee_err: </span><span class="t-value">0.812</span></span>
+      <span class="terminal-line"><span class="t-out">Episode </span><span class="t-value">  300/1000</span><span class="t-out">  reward: </span><span class="t-value"> -94.1</span><span class="t-out">  ee_err: </span><span class="t-value">0.401</span></span>
+      <span class="terminal-line"><span class="t-out">Episode </span><span class="t-value">  600/1000</span><span class="t-out">  reward: </span><span class="t-value"> -31.7</span><span class="t-out">  ee_err: </span><span class="t-value">0.187</span></span>
+      <span class="terminal-line"><span class="t-out">Episode </span><span class="t-value"> 1000/1000</span><span class="t-out">  reward: </span><span class="t-value">  -8.2</span><span class="t-out">  ee_err: </span><span class="t-value">0.055</span></span>
+      <span class="terminal-line" style="margin-top:8px;"><span class="t-prompt">(venv) student@fra-uas:~$</span> <span class="t-cmd">python evaluate.py --model ppo_best.pt --episodes 30</span></span>
+      <span class="terminal-line t-out">Running 30 evaluation episodes...</span>
+      <span class="terminal-line"><span class="t-out">Mean reward:       </span><span class="t-success">-7.83 ± 1.2</span></span>
+      <span class="terminal-line"><span class="t-out">Collision rate:    </span><span class="t-success">0.0 %</span></span>
+      <span class="terminal-line"><span class="t-out">Mean EE error:     </span><span class="t-success">0.052 m</span></span>
+      <span class="terminal-line" style="margin-top:8px;"><span class="t-prompt">(venv) student@fra-uas:~$</span> <span class="t-cursor"></span></span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 10: MATHEMATISCHE FORMELN (KaTeX) ★ HTML-spezifisch   -->
+<!-- ============================================================ -->
+<section class="slide-content slide-math" data-section="Methodik" data-background="bg_content.png">
+  <h2>Mathematisches Modell ★</h2>
+  <div class="two-col">
+    <div>
+      <div class="card card-accent" style="flex:0 0 auto;">
+        <h3>Systemdynamik</h3>
+        <div class="math-block">
+          \[ M(q)\ddot{q} + C(q,\dot{q})\dot{q} + g(q) = \tau \]
+        </div>
+        <div class="math-label">Euler-Lagrange-Gleichung des Robotersystems</div>
+      </div>
+      <div class="card" style="flex:0 0 auto;margin-top:14px;">
+        <h3>Zustandsraumdarstellung</h3>
+        <div class="math-block">
+          \[ \dot{x} = Ax + Bu, \quad y = Cx \]
+        </div>
+        <div class="math-label">Lineares Zustandsraummodell</div>
+      </div>
+    </div>
+    <div>
+      <div class="card card-warning" style="flex:0 0 auto;">
+        <h3>Bellman-Gleichung (RL)</h3>
+        <div class="math-block">
+          \[ V^\pi(s) = \mathbb{E}\!\left[\sum_{t=0}^{\infty} \gamma^t r_t \,\Big|\, s_0{=}s\right] \]
+        </div>
+        <div class="math-label">Zustandswertfunktion unter Policy π</div>
+      </div>
+      <div class="card card-success" style="flex:0 0 auto;margin-top:14px;">
+        <h3>Übertragungsfunktion PT2</h3>
+        <div class="math-block">
+          \[ G(s) = \frac{\omega_n^2}{s^2 + 2\zeta\omega_n s + \omega_n^2} \]
+        </div>
+        <div class="math-label">Laplace-Transformierte des PT2-Glieds</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 11: ANIMIERTES FLUSSDIAGRAMM ★ HTML-spezifisch        -->
+<!-- ============================================================ -->
+<section class="slide-content" id="slide-flow" data-section="Methodik" data-background="bg_content.png">
+  <h2>Algorithmus-Ablauf ★</h2>
+  <div class="flowchart" id="flowchart">
+    <div class="fc-row">
+      <div class="fc-box" id="fc1">Start / Init</div>
+    </div>
+    <div class="fc-arrow-v"></div>
+    <div class="fc-row">
+      <div class="fc-box" id="fc2">Umgebungs-<br>beobachtung s<sub>t</sub></div>
+    </div>
+    <div class="fc-arrow-v"></div>
+    <div class="fc-row">
+      <div class="fc-box" id="fc3">Policy π(a|s)<br>Aktion wählen</div>
+      <div class="fc-arrow-h"></div>
+      <div class="fc-box" id="fc4" style="min-width:140px;">Reward r<sub>t</sub><br>berechnen</div>
+    </div>
+    <div class="fc-arrow-v"></div>
+    <div class="fc-row">
+      <div class="fc-box" id="fc5">Netz-Update<br>(Backprop)</div>
+    </div>
+    <div class="fc-arrow-v"></div>
+    <div class="fc-row">
+      <div class="fc-box diamond" id="fc6"><span>Konvergiert?</span></div>
+    </div>
+    <div class="fc-arrow-v"></div>
+    <div class="fc-row">
+      <div class="fc-box success" id="fc7">Auswertung ✓</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 12: NEURONALES NETZ (SVG) ★ HTML-spezifisch           -->
+<!-- ============================================================ -->
+<section class="slide-content" data-section="Methodik" data-background="bg_content.png">
+  <h2>Netzwerkarchitektur – PPO Actor ★</h2>
+  <div class="two-col-40-60">
+    <div>
+      <div class="card card-accent" style="flex:0 0 auto;">
+        <h3>Architektur</h3>
+        <ul>
+          <li><strong>Input:</strong> 23 Zustandsdimensionen</li>
+          <li><strong>Hidden 1:</strong> 256 Neuronen + ReLU</li>
+          <li><strong>Hidden 2:</strong> 256 Neuronen + ReLU</li>
+          <li><strong>Output:</strong> 4 Aktionen (tanh)</li>
+        </ul>
+      </div>
+      <div class="card" style="flex:0 0 auto;margin-top:14px;">
+        <h3>Training</h3>
+        <ul>
+          <li>Optimizer: Adam, lr=3×10⁻⁴</li>
+          <li>Batch Size: 64</li>
+          <li>Clip ε: 0.2</li>
+        </ul>
+      </div>
+    </div>
+    <div class="nn-wrap">
+      <!-- SVG Neuronales Netz (vereinfacht: 4 → 6 → 6 → 2 Neuronen) -->
+      <svg id="nn-svg" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:260px;">
+        <g id="edges-in-h1"></g>
+        <g id="edges-h1-h2"></g>
+        <g id="edges-h2-out"></g>
+        <text class="nn-label" x="50"  y="305">Input (4)</text>
+        <text class="nn-label" x="160" y="305">Hidden (6)</text>
+        <text class="nn-label" x="265" y="305">Hidden (6)</text>
+        <text class="nn-label" x="355" y="305">Output (2)</text>
+        <g id="nn-nodes-in"></g>
+        <g id="nn-nodes-h1"></g>
+        <g id="nn-nodes-h2"></g>
+        <g id="nn-nodes-out"></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 13: SPLIT DARK/LIGHT ★ HTML-spezifisch                -->
+<!-- ============================================================ -->
+<section class="slide-split" data-background-color="#1e2330">
+  <div class="split-title">Implementierung vs. Ergebnis <span>★</span></div>
+  <div class="split-container">
+    <div class="split-left">
+      <h3>// Regelgesetz (C++)</h3>
+      <pre><code class="language-cpp">// PD-Regler mit Vorsteuerung
+VectorXd Controller::compute(
+    const VectorXd& q,
+    const VectorXd& q_ref,
+    const VectorXd& dq_ref) {
+
+  VectorXd e    = q_ref - q;
+  VectorXd de   = dq_ref - dq_;
+  VectorXd tau  = M_ * (Kp_.cwiseProduct(e)
+                       + Kd_.cwiseProduct(de))
+                + C_ * dq_ref + g_;
+
+  // Saturate torques
+  return tau.cwiseMin(tau_max_)
+            .cwiseMax(-tau_max_);
+}
+</code></pre>
+    </div>
+    <div class="split-right">
+      <h3>Ergebnis &amp; Interpretation</h3>
+      <div class="card card-success" style="flex:0 0 auto;">
+        <h3>Gemessene Kennwerte</h3>
+        <ul>
+          <li>Anstiegszeit: <strong>0,42 s</strong></li>
+          <li>Überschwingen: <strong>&lt; 2 %</strong></li>
+          <li>Stationärer Fehler: <strong>0,003 rad</strong></li>
+        </ul>
+      </div>
+      <div class="card" style="flex:0 0 auto;margin-top:14px;">
+        <h3>Fazit</h3>
+        <p style="font-size:15px;">Der PD-Regler mit Gravitationskompensation erfüllt alle Anforderungen. Geringer Implementierungsaufwand bei guten Ergebnissen.</p>
+      </div>
+      <div class="badge-row" style="margin-top:12px;">
+        <span class="badge badge-green">Echtzeitfähig &lt; 1 ms</span>
+        <span class="badge badge-blue">Deterministisch</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 03: ERGEBNISSE                                        -->
+<!-- ============================================================ -->
+<section class="slide-content slide-section" data-background="bg_content.png">
+  <div class="sct-logo"></div>
+  <div class="sct-num">03</div>
+  <div class="sct-name">Ergebnisse</div>
+  <div class="sct-desc">Messdaten &amp; Auswertung</div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 14: VERGLEICHSTABELLE                                   -->
+<!-- ============================================================ -->
+<section class="slide-content" data-section="Ergebnisse" data-background="bg_content.png">
+  <h2>Methodenvergleich</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align:left;">Methode</th>
+          <th>Genauigkeit [%]</th>
+          <th>Trainingszeit [h]</th>
+          <th>Speicherbedarf [MB]</th>
+          <th>Echtzeit-fähig</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align:left;font-weight:600;">Methode A (Baseline)</td>
+          <td class="dim-cell">71,2</td>
+          <td class="dim-cell">0,5</td>
+          <td class="dim-cell">12</td>
+          <td>✓</td>
+        </tr>
+        <tr>
+          <td style="text-align:left;font-weight:600;">Methode B</td>
+          <td>83,7</td>
+          <td>4,2</td>
+          <td>48</td>
+          <td>✓</td>
+        </tr>
+        <tr>
+          <td style="text-align:left;font-weight:600;color:var(--primary);">Methode C (eigener Ansatz)</td>
+          <td class="highlight-cell">94,1</td>
+          <td class="highlight-cell">2,8</td>
+          <td>124</td>
+          <td class="highlight-cell">✓</td>
+        </tr>
+        <tr>
+          <td style="text-align:left;font-weight:600;">Methode D (SOTA)</td>
+          <td>96,2</td>
+          <td class="dim-cell">18,0</td>
+          <td class="dim-cell">980</td>
+          <td class="dim-cell">✗</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="badge-row" style="margin-top:10px;">
+    <span class="badge badge-green">Bester Wert</span>
+    <span class="badge badge-blue">Eigener Ansatz</span>
+    <span class="badge" style="background:rgba(107,122,141,0.12);color:var(--text-muted);">Schwächster Wert</span>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 15: ANIMIERTES BALKENDIAGRAMM ★ HTML-spezifisch        -->
+<!-- ============================================================ -->
+<!--
+  Die Balken animieren sich beim Aufrufen der Folie automatisch.
+  Passe data-height (0-100) und die Labels an deine Daten an.
+-->
+<section class="slide-content" id="slide-barchart" data-section="Ergebnisse" data-background="bg_content.png">
+  <h2>Ergebnisse – Agentenvergleich ★</h2>
+  <div class="chart-wrap">
+    <div class="bar-chart" id="bar-chart-main">
+      <div class="bar-wrap">
+        <div class="bar-value">94,1 %</div>
+        <div class="bar" id="bar1" data-height="82" style="height:0;"></div>
+        <div class="bar-label">Eigener<br>Ansatz</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-value">83,7 %</div>
+        <div class="bar bar-accent" id="bar2" data-height="70" style="height:0;"></div>
+        <div class="bar-label">Methode B</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-value">71,2 %</div>
+        <div class="bar bar-warning" id="bar3" data-height="55" style="height:0;"></div>
+        <div class="bar-label">Baseline</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-value">62,5 %</div>
+        <div class="bar bar-danger" id="bar4" data-height="45" style="height:0;"></div>
+        <div class="bar-label">Methode D</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-value">58,0 %</div>
+        <div class="bar bar-danger" id="bar5" data-height="38" style="height:0;"></div>
+        <div class="bar-label">Methode E</div>
+      </div>
+    </div>
+    <div class="bar-axis"></div>
+  </div>
+  <p class="text-muted" style="margin-top:10px;flex-shrink:0;">Metrik: [Messeinheit], n=[Anzahl Durchläufe], Konfidenzintervall 95 %</p>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 16: LIVE-GRAPH (Canvas API) ★ HTML-spezifisch          -->
+<!-- ============================================================ -->
+<section class="slide-content" id="slide-canvas" data-section="Ergebnisse" data-background="bg_content.png">
+  <h2>Lernkurve – Reward über Episoden ★</h2>
+  <div class="canvas-wrap">
+    <canvas id="learning-canvas"></canvas>
+  </div>
+  <div class="stat-row" style="margin-top:14px;flex-shrink:0;">
+    <div class="stat-box"><span class="number" style="color:var(--primary);">−182</span><span class="label">Episode 1</span></div>
+    <div class="stat-box"><span class="number" style="color:var(--warning);">−31</span><span class="label">Episode 600</span></div>
+    <div class="stat-box"><span class="number" style="color:var(--success);">−8.2</span><span class="label">Episode 1000</span></div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 17: ANIMIERTE FORTSCHRITTSBALKEN ★ HTML-spezifisch     -->
+<!-- ============================================================ -->
+<section class="slide-content" id="slide-progress" data-section="Ergebnisse" data-background="bg_content.png">
+  <h2>Leistungsmetriken im Überblick ★</h2>
+  <div class="two-col">
+    <div>
+      <div class="card card-success" style="flex:0 0 auto;">
+        <h3>Eigener Ansatz</h3>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-label"><span>Tracking-Genauigkeit</span><span>94,1 %</span></div>
+          <div class="progress-bar-track"><div class="progress-bar-fill" data-width="94"></div></div>
+        </div>
+        <div class="progress-bar-wrap" style="margin-top:10px;">
+          <div class="progress-bar-label"><span>Energieeffizienz</span><span>87,3 %</span></div>
+          <div class="progress-bar-track"><div class="progress-bar-fill success" data-width="87"></div></div>
+        </div>
+        <div class="progress-bar-wrap" style="margin-top:10px;">
+          <div class="progress-bar-label"><span>Sicherheitsrate</span><span>100 %</span></div>
+          <div class="progress-bar-track"><div class="progress-bar-fill success" data-width="100"></div></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card card-warning" style="flex:0 0 auto;">
+        <h3>Baseline-Verfahren</h3>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-label"><span>Tracking-Genauigkeit</span><span>71,2 %</span></div>
+          <div class="progress-bar-track"><div class="progress-bar-fill warning" data-width="71"></div></div>
+        </div>
+        <div class="progress-bar-wrap" style="margin-top:10px;">
+          <div class="progress-bar-label"><span>Energieeffizienz</span><span>63,0 %</span></div>
+          <div class="progress-bar-track"><div class="progress-bar-fill warning" data-width="63"></div></div>
+        </div>
+        <div class="progress-bar-wrap" style="margin-top:10px;">
+          <div class="progress-bar-label"><span>Sicherheitsrate</span><span>82,5 %</span></div>
+          <div class="progress-bar-track"><div class="progress-bar-fill warning" data-width="82"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="badge-row" style="margin-top:12px;">
+    <span class="badge badge-green">+32 % Tracking</span>
+    <span class="badge badge-green">+38 % Sicherheit</span>
+    <span class="badge badge-blue">Eigener Ansatz überlegen in allen Metriken</span>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 04: FAZIT                                             -->
+<!-- ============================================================ -->
+<section class="slide-content slide-section" data-background="bg_content.png">
+  <div class="sct-logo"></div>
+  <div class="sct-num">04</div>
+  <div class="sct-name">Fazit</div>
+  <div class="sct-desc">Zusammenfassung &amp; Ausblick</div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 19: ZUSAMMENFASSUNG                                     -->
+<!-- ============================================================ -->
+<section class="slide-content" data-section="Fazit" data-background="bg_content.png">
+  <h2>Zusammenfassung</h2>
+  <div class="two-col">
+    <div>
+      <div class="card card-success" style="flex:0 0 auto;">
+        <h3>Was wurde erreicht?</h3>
+        <div style="margin-top:8px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="width:26px;height:26px;border-radius:50%;background:rgba(14,138,95,0.15);color:var(--success);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">✓</div>
+            <span style="font-size:16px;">Ziel A wurde erreicht: Kurzbeschreibung des Ergebnisses</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="width:26px;height:26px;border-radius:50%;background:rgba(14,138,95,0.15);color:var(--success);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">✓</div>
+            <span style="font-size:16px;">Ziel B: Signifikante Verbesserung gegenüber Baseline</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:26px;height:26px;border-radius:50%;background:rgba(14,138,95,0.15);color:var(--success);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">✓</div>
+            <span style="font-size:16px;">Ziel C: Sicherheitsanforderungen vollständig erfüllt</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card card-accent" style="flex:0 0 auto;">
+        <h3>Ausblick</h3>
+        <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+          <span style="font-size:22px;flex-shrink:0;margin-top:2px;">🚀</span>
+          <div>
+            <strong style="color:var(--primary);font-size:15px;">Erweiterung der Methode</strong><br>
+            <span style="font-size:14px;color:var(--text-mid);">Anwendung auf größere Systeme oder andere Domänen</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <span style="font-size:22px;flex-shrink:0;margin-top:2px;">🔬</span>
+          <div>
+            <strong style="color:var(--primary);font-size:15px;">Hardware-Experimente</strong><br>
+            <span style="font-size:14px;color:var(--text-mid);">Validierung am realen Prüfstand / Prototyp</span>
+          </div>
+        </div>
+      </div>
+      <div class="stat-row" style="margin-top:16px;flex-shrink:0;">
+        <div class="stat-box"><span class="number">+23 %</span><span class="label">Effizienzgewinn</span></div>
+        <div class="stat-box"><span class="number">0 %</span><span class="label">Kollisionsrate</span></div>
+        <div class="stat-box"><span class="number">3×</span><span class="label">Speedup</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- FOLIE 20: DANKE-FOLIE (dunkel, mit Hintergrundbild)          -->
+<!-- ============================================================ -->
+<section class="slide-dark" data-background="bg_end.png">
+  <h1 style="font-size:44px;">Vielen Dank!</h1>
+  <div class="subtitle">Fragen &amp; Diskussion</div>
+  <div class="meta" style="margin-top:24px;">
+    <strong>[Vorname Nachname]</strong><br>
+    Frankfurt University of Applied Sciences<br>
+    [Studiengang] · [B.Eng. / M.Eng. / B.Sc. / M.Sc.]<br><br>
+    <span style="font-size:13px;color:rgba(160,180,200,0.8);">
+      [email@stud.fra-uas.de] · [LinkedIn / GitHub optional]
+    </span>
+  </div>
+</section>
+
+
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SCRIPTS                                                       -->
+<!-- ============================================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    width: 1280,
+    height: 720,
+    margin: 0,
+    minScale: 0.2,
+    maxScale: 2.0,
+    transition: 'fade',
+    transitionSpeed: 'default',
+    backgroundTransition: 'fade',
+    center: false,
+    controls: true,
+    progress: true,
+    history: true,
+  });
+
+  /* ---- KaTeX: Mathe-Formeln rendern ---- */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (typeof renderMathInElement !== 'undefined') {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "$",  right: "$",  display: false },
+          { left: "\\(", right: "\\)", display: false },
+        ]
+      });
+    }
+  });
+
+  /* ---- Highlight.js: Syntax-Highlighting ---- */
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+  });
+
+  /* ---- Animiertes Balkendiagramm ---- */
+  function animateBars() {
+    const bars = document.querySelectorAll('#bar-chart-main .bar');
+    bars.forEach(bar => {
+      const h = bar.dataset.height;
+      bar.style.height = h + '%';
+    });
+  }
+
+  /* ---- Canvas: Lernkurve ---- */
+  let canvasAnim = null;
+  function startLearningCurve() {
+    const canvas = document.getElementById('learning-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    // Resize canvas to actual CSS pixels
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width  = rect.width  * devicePixelRatio;
+    canvas.height = rect.height * devicePixelRatio;
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+    const W = rect.width, H = rect.height;
+
+    // Simulated reward data: exponential decay with noise
+    const N = 200;
+    const data = [];
+    for (let i = 0; i < N; i++) {
+      const x = i / (N - 1);
+      const trend = -180 * Math.exp(-4.5 * x) - 8;
+      const noise = (Math.random() - 0.5) * 20 * Math.exp(-2 * x);
+      data.push(trend + noise);
+    }
+    const minV = Math.min(...data), maxV = Math.max(...data);
+    const pad = { top: 24, right: 20, bottom: 40, left: 56 };
+
+    function toX(i)   { return pad.left + (i / (N - 1)) * (W - pad.left - pad.right); }
+    function toY(val) { return pad.top + (1 - (val - minV) / (maxV - minV)) * (H - pad.top - pad.bottom); }
+
+    function drawGrid() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.strokeStyle = 'rgba(13,79,139,0.08)'; ctx.lineWidth = 1;
+      for (let i = 0; i <= 5; i++) {
+        const y = pad.top + i * (H - pad.top - pad.bottom) / 5;
+        ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
+        const val = Math.round(minV + (1 - i / 5) * (maxV - minV));
+        ctx.fillStyle = 'rgba(107,122,141,0.8)'; ctx.font = '12px Inter,sans-serif'; ctx.textAlign = 'right';
+        ctx.fillText(val.toString(), pad.left - 8, y + 4);
+      }
+      for (let i = 0; i <= 4; i++) {
+        const x = pad.left + i * (W - pad.left - pad.right) / 4;
+        ctx.beginPath(); ctx.moveTo(x, pad.top); ctx.lineTo(x, H - pad.bottom); ctx.stroke();
+        ctx.fillStyle = 'rgba(107,122,141,0.8)'; ctx.textAlign = 'center';
+        ctx.fillText((i * 250).toString(), x, H - pad.bottom + 18);
+      }
+      ctx.fillStyle = 'rgba(107,122,141,0.9)'; ctx.font = 'bold 12px Inter,sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Episode', W / 2, H - 4);
+      ctx.save(); ctx.translate(14, H / 2); ctx.rotate(-Math.PI / 2);
+      ctx.fillText('Reward', 0, 0); ctx.restore();
+    }
+
+    let t = 0;
+    function frame() {
+      drawGrid();
+      if (t > N - 1) { cancelAnimationFrame(canvasAnim); return; }
+      t = Math.min(t + 3, N - 1);
+
+      // Gradient fill
+      const grad = ctx.createLinearGradient(0, pad.top, 0, H - pad.bottom);
+      grad.addColorStop(0, 'rgba(13,79,139,0.25)');
+      grad.addColorStop(1, 'rgba(13,79,139,0.01)');
+      ctx.beginPath();
+      ctx.moveTo(toX(0), H - pad.bottom);
+      for (let i = 0; i <= t; i++) ctx.lineTo(toX(i), toY(data[i]));
+      ctx.lineTo(toX(t), H - pad.bottom); ctx.closePath();
+      ctx.fillStyle = grad; ctx.fill();
+
+      // Line
+      ctx.beginPath();
+      ctx.moveTo(toX(0), toY(data[0]));
+      for (let i = 1; i <= t; i++) ctx.lineTo(toX(i), toY(data[i]));
+      ctx.strokeStyle = '#0d4f8b'; ctx.lineWidth = 2.5;
+      ctx.lineJoin = 'round'; ctx.stroke();
+
+      // Moving dot
+      ctx.beginPath();
+      ctx.arc(toX(t), toY(data[t]), 5, 0, Math.PI * 2);
+      ctx.fillStyle = '#0e7c86'; ctx.fill();
+
+      canvasAnim = requestAnimationFrame(frame);
+    }
+    if (canvasAnim) cancelAnimationFrame(canvasAnim);
+    t = 0;
+    frame();
+  }
+
+  /* ---- Neuronales Netz (SVG) zeichnen ---- */
+  function buildNN() {
+    const svg = document.getElementById('nn-svg');
+    if (!svg) return;
+
+    const layers = [
+      { x: 50,  n: 4, id: 'in',  label: '' },
+      { x: 160, n: 6, id: 'h1',  label: '' },
+      { x: 265, n: 6, id: 'h2',  label: '' },
+      { x: 355, n: 2, id: 'out', label: '' },
+    ];
+    const H = 280, r = 14;
+
+    function nodeY(layer, i) {
+      const total = layer.n;
+      const spacing = Math.min(H / (total + 1), 44);
+      const start = H / 2 - (total - 1) * spacing / 2;
+      return start + i * spacing;
+    }
+
+    // Draw edges
+    function drawEdges(groupId, layerA, layerB) {
+      const g = document.getElementById(groupId);
+      for (let i = 0; i < layerA.n; i++) {
+        for (let j = 0; j < layerB.n; j++) {
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('x1', layerA.x);
+          line.setAttribute('y1', nodeY(layerA, i));
+          line.setAttribute('x2', layerB.x);
+          line.setAttribute('y2', nodeY(layerB, j));
+          line.setAttribute('class', 'nn-edge');
+          g.appendChild(line);
+        }
+      }
+    }
+    drawEdges('edges-in-h1', layers[0], layers[1]);
+    drawEdges('edges-h1-h2', layers[1], layers[2]);
+    drawEdges('edges-h2-out', layers[2], layers[3]);
+
+    // Draw nodes
+    layers.forEach((layer, li) => {
+      const g = document.getElementById('nn-nodes-' + layer.id);
+      for (let i = 0; i < layer.n; i++) {
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', layer.x);
+        circle.setAttribute('cy', nodeY(layer, i));
+        circle.setAttribute('r', r);
+        circle.setAttribute('class', 'nn-node' + (li === layers.length - 1 ? ' output' : ''));
+        g.appendChild(circle);
+      }
+    });
+  }
+
+  /* ---- Fortschrittsbalken animieren ---- */
+  function animateProgressBars(slideEl) {
+    slideEl.querySelectorAll('.progress-bar-fill').forEach(bar => {
+      const w = bar.dataset.width;
+      setTimeout(() => { bar.style.width = w + '%'; }, 100);
+    });
+  }
+
+  /* ---- Flowchart animieren ---- */
+  function animateFlowchart() {
+    const ids = ['fc1','fc2','fc3','fc4','fc5','fc6','fc7'];
+    ids.forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('active','success'); });
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < ids.length) {
+        const el = document.getElementById(ids[i]);
+        if (el) el.classList.add(ids[i] === 'fc7' ? 'success' : 'active');
+        i++;
+      } else { clearInterval(interval); }
+    }, 400);
+  }
+
+  /* ---- Reveal.js: Animationen an Folie koppeln ---- */
+  Reveal.on('slidechanged', event => {
+    const s = event.currentSlide;
+
+    if (s.id === 'slide-barchart') animateBars();
+    if (s.id === 'slide-canvas')   { setTimeout(startLearningCurve, 300); }
+    if (s.id === 'slide-flow')     animateFlowchart();
+    if (s.id === 'slide-progress') animateProgressBars(s);
+  });
+
+  /* ---- Init beim Laden ---- */
+  Reveal.on('ready', () => {
+    buildNN();
+    // Falls erste Folie bereits eine animierte ist, einmal triggern
+    const first = Reveal.getCurrentSlide();
+    if (first.id === 'slide-progress') animateProgressBars(first);
+    if (first.id === 'slide-barchart') animateBars();
+    if (first.id === 'slide-canvas')   setTimeout(startLearningCurve, 300);
+    if (first.id === 'slide-flow')     animateFlowchart();
+  });
+</script>
+</body>
+</html>
